@@ -10,9 +10,13 @@ export default defineConfig(() => {
       react(),
       tailwindcss(),
       {
-        name: 'html-transform',
+        name: 'vite-entry-transform',
+        enforce: 'pre',
         transformIndexHtml(html) {
-          return html.replace('__APP_COMPILED__ = false', '__APP_COMPILED__ = true');
+          return html.replace(
+            /<script type="module" crossorigin src="\.\/assets\/.*?"><\/script>/,
+            '<script type="module" src="/src/main.tsx"></script>'
+          );
         },
       },
     ],
