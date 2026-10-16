@@ -9,16 +9,6 @@ export default defineConfig(() => {
     plugins: [
       react(),
       tailwindcss(),
-      {
-        name: 'vite-entry-transform',
-        enforce: 'pre',
-        transformIndexHtml(html) {
-          return html.replace(
-            /<script type="module" crossorigin src="\.\/assets\/.*?"><\/script>/,
-            '<script type="module" src="/src/main.tsx"></script>'
-          );
-        },
-      },
     ],
     resolve: {
       alias: {
