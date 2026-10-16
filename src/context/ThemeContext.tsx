@@ -14,12 +14,20 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('tecnica_pc_theme') as Theme;
-      if (savedTheme === 'light' || savedTheme === 'dark') {
-        return savedTheme;
+      try {
+        const savedTheme = localStorage.getItem('tecnica_pc_theme') as Theme;
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+          return savedTheme;
+        }
+      } catch (e) {
+        console.warn('localStorage not accessible, using default theme', e);
       }
-      if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-        return 'light';
+      try {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+          return 'light';
+        }
+      } catch (e) {
+        // matchMedia fallback
       }
     }
     return 'dark';
@@ -34,7 +42,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       root.classList.remove('dark');
       root.classList.add('light');
     }
-    localStorage.setItem('tecnica_pc_theme', theme);
+    try {
+      localStorage.setItem('tecnica_pc_theme', theme);
+    } catch (e) {
+      // ignore storage quota/security error
+    }
   }, [theme]);
 
   const toggleTheme = () => {
