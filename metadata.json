@@ -1,0 +1,6 @@
+{
+  "name": "Guía de Mantenimiento de Equipos de Cómputo",
+  "description": "Manual interactivo técnico y operativo de mantenimiento preventivo y correctivo de hardware y software: seguridad ESD, herramientas, simuladores de pasta y flujo de aire, diagnóstico y reportes técnicos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
