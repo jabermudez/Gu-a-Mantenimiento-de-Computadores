@@ -12,6 +12,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      (function() {
+        var path = window.location.pathname;
+        if (path && !path.endsWith('/') && !path.split('/').pop().includes('.')) {
+          window.location.replace(path + '/' + window.location.search + window.location.hash);
+        }
+      })();
+    </script>
   </head>
   <body class="font-sans antialiased min-h-screen selection:bg-cyan-500/20 selection:text-cyan-600 dark:selection:text-cyan-300">
     <div id="root"></div>
