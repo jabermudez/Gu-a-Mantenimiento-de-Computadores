@@ -13,10 +13,26 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
+      // 1. Garantizar barra diagonal final para resolución de rutas relativas
       (function() {
         var path = window.location.pathname;
         if (path && !path.endsWith('/') && !path.split('/').pop().includes('.')) {
           window.location.replace(path + '/' + window.location.search + window.location.hash);
+          return;
+        }
+      })();
+
+      // 2. Estado de compilación (Vite lo reemplazará por true en dist y docs)
+      window.__APP_COMPILED__ = false;
+
+      // 3. Si se sirve el index.html no compilado de la raíz en GitHub Pages, redirigir a /docs/
+      (function() {
+        if (window.location.hostname.includes('github.io') && !window.__APP_COMPILED__) {
+          var p = window.location.pathname;
+          if (!p.includes('/docs')) {
+            var target = p.endsWith('/') ? p + 'docs/' : p + '/docs/';
+            window.location.replace(target + window.location.search + window.location.hash);
+          }
         }
       })();
     </script>
